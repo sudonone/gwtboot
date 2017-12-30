@@ -2,9 +2,13 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
         "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module rename-to='gwtboot'>
-   <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.User'/>
 
     <inherits name='com.gwtplatform.mvp.MvpWithEntryPoint'/>
+
+    <!--<inherits name="gwt.material.design.GwtMaterialWithJQuery" />-->
+    <!--<inherits name="gwt.material.design.themes.ThemeBlue"/>-->
+    <inherits name="org.gwtbootstrap3.GwtBootstrap3"/>
 
     <source path='client'/>
     <source path='shared'/>

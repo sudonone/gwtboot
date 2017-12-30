@@ -14,6 +14,7 @@
 	<properties>
 		<gwt.version>2.8.1</gwt.version>
 		<gwtp.version>1.6</gwtp.version>
+		<gmd.version>2.0</gmd.version>
 		<maven-war-plugin.version>2.6</maven-war-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<target.jdk>1.8</target.jdk>
@@ -82,6 +83,30 @@
 			<groupId>com.gwtplatform</groupId>
 			<artifactId>gwtp-mvp-shared</artifactId>
 			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.github.gwtmaterialdesign</groupId>-->
+			<!--<artifactId>gwt-material</artifactId>-->
+			<!--<version>${gmd.version}</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.github.gwtmaterialdesign</groupId>-->
+			<!--<artifactId>gwt-material-themes</artifactId>-->
+			<!--<version>${gmd.version}</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.gwtmaterialdesign</groupId>-->
+            <!--<artifactId>gwt-material-jquery</artifactId>-->
+            <!--<version>${gmd.version}</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+		<dependency>
+			<groupId>org.gwtbootstrap3</groupId>
+			<artifactId>gwtbootstrap3</artifactId>
+			<version>0.9.4</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
