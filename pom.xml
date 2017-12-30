@@ -12,6 +12,7 @@
 	<description>Root module of Gwtboot</description>
 
 	<modules>
+		<module>shared</module>
 		<module>server</module>
 	</modules>
 

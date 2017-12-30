@@ -1,4 +1,4 @@
-package com.github.aceroni75.gwtboot.server.entity;
+package com.github.aceroni75.gwtboot.shared.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

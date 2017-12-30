@@ -1,53 +1,46 @@
 package com.github.aceroni75.gwtboot.server.resource;
 
-import com.github.aceroni75.gwtboot.server.entity.Task;
 import com.github.aceroni75.gwtboot.server.entity.TaskRepository;
+import com.github.aceroni75.gwtboot.shared.entity.Task;
+import com.github.aceroni75.gwtboot.shared.resource.TaskResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-import javax.ws.rs.*;
-
-@Component
-@Path("/task")
-@Consumes("application/json")
-@Produces("application/json")
-public class TaskResource {
+@Controller
+public class TaskController implements TaskResource {
 
     private final TaskRepository taskRepository;
 
     @Autowired
-    public TaskResource(TaskRepository taskRepository) {
+    public TaskController(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    @GET
+    @Override
     public Iterable<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
-    @GET
-    @Path("{id}")
-    public Task getTask(@PathParam("id") Long id) {
+    @Override
+    public Task getTask(Long id) {
         return taskRepository.findOne(id);
     }
 
-    @PUT
+    @Override
     public Task addTask(Task task) {
         return taskRepository.save(new Task(task.getTitle(), task.getText()));
     }
 
-    @PUT
-    @Path("{id}")
-    public Task updateTask(@PathParam("id") Long id, Task task) {
+    @Override
+    public Task updateTask(Long id, Task task) {
         Task existing = taskRepository.findOne(id);
         existing.setText(task.getText());
         existing.setTitle(task.getTitle());
         return taskRepository.save(existing);
     }
 
-    @DELETE
-    @Path("{id}")
-    public void deleteTask(@PathParam("id") Long id) {
+    @Override
+    public void deleteTask(Long id) {
         taskRepository.delete(id);
     }
 
