@@ -42,7 +42,7 @@ public class Possible<T> {
         return this;
     }
 
-    private boolean isNotEmpty() {
+    public boolean isNotEmpty() {
         return !isEmpty();
     }
 
