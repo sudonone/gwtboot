@@ -25,5 +25,5 @@ public interface TaskResource {
 
     @DELETE
     @Path("{id}")
-    void deleteTask(@PathParam("id") Long id);
+    Void deleteTask(@PathParam("id") Long id);
 }

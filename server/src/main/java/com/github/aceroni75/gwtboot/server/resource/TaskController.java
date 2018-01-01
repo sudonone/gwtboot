@@ -40,8 +40,9 @@ public class TaskController implements TaskResource {
     }
 
     @Override
-    public void deleteTask(Long id) {
+    public Void deleteTask(Long id) {
         taskRepository.delete(id);
+        return null;
     }
 
 }

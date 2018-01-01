@@ -40,8 +40,10 @@ public class Places {
             builder = new PlaceRequest.Builder();
         }
 
-        public Revealer with(String key, String value) {
-            builder.with(key, value);
+        public Revealer with(String key, Object value) {
+            if (value != null) {
+                builder.with(key, value.toString());
+            }
             return this;
         }
 

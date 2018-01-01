@@ -1,5 +1,6 @@
 package com.github.aceroni75.gwtboot.client.application;
 
+import com.github.aceroni75.gwtboot.client.application.edit.EditModule;
 import com.github.aceroni75.gwtboot.client.application.home.HomeModule;
 import com.github.aceroni75.gwtboot.client.application.menu.MenuModule;
 import com.github.aceroni75.gwtboot.client.application.task.TaskModule;
@@ -11,6 +12,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new MenuModule());
         install(new HomeModule());
         install(new TaskModule());
+        install(new EditModule());
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);
