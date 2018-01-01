@@ -4,7 +4,10 @@
 >
     <b:Navbar>
         <b:NavbarHeader>
-            <b:NavbarBrand href="/">GWTBoot</b:NavbarBrand>
+            <b:NavbarBrand ui:field="home">GWTBoot</b:NavbarBrand>
+            <b:NavbarNav>
+                <b:AnchorListItem ui:field="tasks">Tasks</b:AnchorListItem>
+            </b:NavbarNav>
         </b:NavbarHeader>
     </b:Navbar>
 </ui:UiBinder>

@@ -1,4 +1,4 @@
-package com.github.aceroni75.gwtboot.client.application.edit;
+package com.github.aceroni75.gwtboot.client.application.list;
 
 import com.github.aceroni75.gwtboot.client.application.ApplicationPresenter;
 import com.github.aceroni75.gwtboot.client.util.Places;
@@ -18,17 +18,16 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.ADD;
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.EDIT;
+import static com.github.aceroni75.gwtboot.client.place.NameTokens.*;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
 
-public class EditPresenter extends Presenter<EditPresenter.MyView, EditPresenter.MyProxy> implements EditHandlers {
+public class ListPresenter extends Presenter<ListPresenter.MyView, ListPresenter.MyProxy> implements ListHandlers {
 
     private final PlaceManager placeManager;
     private final ResourceDelegate<TaskResource> taskDelegate;
 
     @Inject
-    EditPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager placeManager,
+    ListPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager placeManager,
                   ResourceDelegate<TaskResource> taskDelegate) {
         super(eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN);
         this.placeManager = placeManager;
@@ -38,38 +37,29 @@ public class EditPresenter extends Presenter<EditPresenter.MyView, EditPresenter
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
-        getView().clearTask();
-        Places.from(request).getLong(ID).ifPresent(id -> {
-            Rest.using(taskDelegate)
-                    .call(r -> r.getTask(id))
-                    .onSuccess(getView()::setTask)
-                    .onFailure(t -> GWT.log("Error", t))
-                    .apply();
-        });
-    }
-
-    @Override
-    public void onSave(Long id, Task task) {
         Rest.using(taskDelegate)
-                .call(r -> (id != null) ? r.updateTask(id, task) : r.addTask(task))
-                .onSuccess(e -> placeManager.navigateBack())
+                .call(TaskResource::getAllTasks)
+                .onSuccess(getView()::setTasks)
                 .onFailure(t -> GWT.log("Error", t))
                 .apply();
     }
 
     @Override
-    public void onCancel() {
-        placeManager.navigateBack();
+    public void viewTask(Long id) {
+        Places.using(placeManager).with(ID, id).reveal(TASK);
     }
 
-    interface MyView extends View, HasUiHandlers<EditHandlers> {
-        void setTask(Task task);
+    @Override
+    public void onAdd() {
+        Places.using(placeManager).reveal(ADD);
+    }
 
-        void clearTask();
+    interface MyView extends View, HasUiHandlers<ListHandlers> {
+        void setTasks(Iterable<Task> tasks);
     }
 
     @ProxyStandard
-    @NameToken(value = {EDIT, ADD})
-    interface MyProxy extends ProxyPlace<EditPresenter> {
+    @NameToken(value = LIST)
+    interface MyProxy extends ProxyPlace<ListPresenter> {
     }
 }

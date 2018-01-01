@@ -31,6 +31,13 @@ class EditView extends ViewWithUiHandlers<EditHandlers> implements EditPresenter
         text.setText(task.getText());
     }
 
+    @Override
+    public void clearTask() {
+        task = null;
+        title.setText("");
+        text.setText("");
+    }
+
     @UiHandler("save")
     public void saveClick(ClickEvent event) {
         Task newTask = new Task(title.getText(), text.getText());

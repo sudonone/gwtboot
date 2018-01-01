@@ -19,7 +19,7 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
 import static com.github.aceroni75.gwtboot.client.application.ApplicationPresenter.SLOT_MAIN;
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.EDIT;
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.HOME;
+import static com.github.aceroni75.gwtboot.client.place.NameTokens.LIST;
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.TASK;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
 
@@ -58,14 +58,14 @@ public class TaskPresenter extends Presenter<TaskPresenter.MyView, TaskPresenter
     public void onDelete(Long id) {
         Rest.using(taskDelegate)
                 .call(r -> r.deleteTask(id))
-                .onSuccess(v -> Places.using(placeManager).reveal(HOME))
+                .onSuccess(v -> Places.using(placeManager).reveal(LIST))
                 .onFailure(t -> GWT.log("Error", t))
                 .apply();
     }
 
     @Override
     public void onBack() {
-        Places.using(placeManager).reveal(HOME);
+        Places.using(placeManager).reveal(LIST);
     }
 
     interface MyView extends View, HasUiHandlers<TaskHandlers> {
