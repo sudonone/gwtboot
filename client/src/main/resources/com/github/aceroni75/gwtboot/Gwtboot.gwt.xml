@@ -12,5 +12,5 @@
     <source path='client'/>
 
     <extend-configuration-property name="gin.ginjector.modules"
-                                   value="com.github.aceroni75.gwtboot.client.gin.ClientModule"/>
+                                   value="com.github.aceroni75.gwtboot.client.ClientModule"/>
 </module>

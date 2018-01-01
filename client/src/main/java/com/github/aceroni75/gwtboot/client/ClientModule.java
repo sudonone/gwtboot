@@ -1,4 +1,4 @@
-package com.github.aceroni75.gwtboot.client.gin;
+package com.github.aceroni75.gwtboot.client;
 
 import com.github.aceroni75.gwtboot.client.place.NameTokens;
 import com.github.aceroni75.gwtboot.client.application.ApplicationModule;

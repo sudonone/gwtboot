@@ -38,13 +38,14 @@ public class EditPresenter extends Presenter<EditPresenter.MyView, EditPresenter
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
-        getView().clearTask();
         Places.from(request).getLong(ID).ifPresent(id -> {
             Rest.using(taskDelegate)
                     .call(r -> r.getTask(id))
                     .onSuccess(getView()::setTask)
                     .onFailure(t -> GWT.log("Error", t))
                     .apply();
+        }).orElse(() -> {
+            getView().clearTask();
         });
     }
 

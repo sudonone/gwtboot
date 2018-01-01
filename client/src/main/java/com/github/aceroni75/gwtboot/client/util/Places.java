@@ -3,8 +3,6 @@ package com.github.aceroni75.gwtboot.client.util;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
-import java.util.Optional;
-
 public class Places {
     public static Getter from(PlaceRequest request) {
         return new Getter(request);
@@ -21,13 +19,13 @@ public class Places {
             this.request = request;
         }
 
-        public Optional<String> get(String key) {
+        public Possible<String> get(String key) {
             String value = request.getParameter(key, null);
-            return Optional.ofNullable(value).filter(Strings::isNotBlank);
+            return Possible.of(value).filter(Strings::isNotBlank);
         }
 
-        public Optional<Long> getLong(String key) {
-            return get(key).map(Strings::longOrNull);
+        public Possible<Long> getLong(String key) {
+            return get(key).transform(Strings::longOrNull);
         }
     }
 
