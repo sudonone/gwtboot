@@ -19,13 +19,15 @@
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<target.jdk>1.8</target.jdk>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <war.classes.dir>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</war.classes.dir>
 	</properties>
 
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
-		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+		<outputDirectory>${war.classes.dir}</outputDirectory>
 
 		<plugins>
+            <!-- Compilation setting-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -44,13 +46,7 @@
                 <version>${gwt.version}</version>
 				<configuration>
 					<strict>true</strict>
-
-					<testTimeOut>180</testTimeOut>
-					<mode>htmlunit</mode>
-					<includes>**/*GwtTest.java</includes>
-
-					<logLevel>INFO</logLevel>
-
+					<logLevel>DEBUG</logLevel>
 					<runTarget>gwtboot.html</runTarget>
 					<module>com.github.aceroni75.gwtboot.Gwtboot</module>
 				</configuration>
@@ -67,6 +63,19 @@
 	</build>
 
 	<dependencies>
+        <dependency>
+            <groupId>com.github.aceroni75.gwtboot</groupId>
+            <artifactId>shared</artifactId>
+            <version>${project.version}</version>
+			<scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.aceroni75.gwtboot</groupId>
+            <artifactId>shared</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
@@ -85,24 +94,24 @@
 			<version>${gwtp.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.github.gwtmaterialdesign</groupId>-->
-			<!--<artifactId>gwt-material</artifactId>-->
-			<!--<version>${gmd.version}</version>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.github.gwtmaterialdesign</groupId>-->
-			<!--<artifactId>gwt-material-themes</artifactId>-->
-			<!--<version>${gmd.version}</version>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.github.gwtmaterialdesign</groupId>-->
-            <!--<artifactId>gwt-material-jquery</artifactId>-->
-            <!--<version>${gmd.version}</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-dispatch-rest</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-dispatch-rest-shared</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.gwtplatform.extensions</groupId>
+            <artifactId>dispatch-rest-delegates</artifactId>
+            <version>${gwtp.version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.gwtbootstrap3</groupId>
 			<artifactId>gwtbootstrap3</artifactId>
