@@ -13,5 +13,8 @@
                 <b.html:Text ui:field="text"/>
             </b:PanelBody>
         </b:Panel>
+        <b:Button ui:field="edit" text="Edit"/>
+        <b:Button ui:field="delete" text="Delete"/>
+        <b:Button ui:field="back" text="Back"/>
     </g:HTMLPanel>
 </ui:UiBinder>

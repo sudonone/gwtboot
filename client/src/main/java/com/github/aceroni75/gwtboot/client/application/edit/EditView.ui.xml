@@ -1,0 +1,20 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+>
+    <g:HTMLPanel>
+        <g:HTMLPanel>
+            <b:Panel>
+                <b:PanelHeader>
+                    <b:TextBox ui:field="title" placeholder="Title"/>
+                </b:PanelHeader>
+                <b:PanelBody>
+                    <b:TextArea ui:field="text" placeholder="Text"/>
+                </b:PanelBody>
+            </b:Panel>
+            <b:Button ui:field="save" text="Save"/>
+            <b:Button ui:field="cancel" text="Cancel"/>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

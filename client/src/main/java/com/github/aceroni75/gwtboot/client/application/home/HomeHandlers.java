@@ -4,4 +4,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface HomeHandlers extends UiHandlers {
     void viewTask(Long id);
+
+    void onAdd();
 }

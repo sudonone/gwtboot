@@ -1,8 +1,10 @@
 package com.github.aceroni75.gwtboot.client.application.home;
 
 import com.github.aceroni75.gwtboot.shared.entity.Task;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -32,6 +34,11 @@ class HomeView extends ViewWithUiHandlers<HomeHandlers> implements HomePresenter
             item.add(a);
             this.tasks.add(item);
         }
+    }
+
+    @UiHandler("add")
+    public void onAddClick(ClickEvent event) {
+        getUiHandlers().onAdd();
     }
 
     interface Binder extends UiBinder<Widget, HomeView> {
