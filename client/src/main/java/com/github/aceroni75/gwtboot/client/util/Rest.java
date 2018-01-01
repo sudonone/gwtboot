@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class Rest {
-    public static <R> Delegate<R> with(ResourceDelegate<R> resourceDelegate) {
+    public static <R> Delegate<R> using(ResourceDelegate<R> resourceDelegate) {
         return new Delegate<>(resourceDelegate);
     }
 

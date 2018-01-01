@@ -5,12 +5,12 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import org.gwtbootstrap3.client.ui.Anchor;
 import org.gwtbootstrap3.client.ui.ListGroup;
 import org.gwtbootstrap3.client.ui.ListGroupItem;
 
-class HomeView extends ViewImpl implements HomePresenter.MyView {
+class HomeView extends ViewWithUiHandlers<HomeHandlers> implements HomePresenter.MyView {
     @UiField
     ListGroup tasks;
 
@@ -22,9 +22,14 @@ class HomeView extends ViewImpl implements HomePresenter.MyView {
     @Override
     public void setTasks(Iterable<Task> tasks) {
         this.tasks.clear();
+        HomeHandlers handlers = getUiHandlers();
         for(Task task : tasks) {
             ListGroupItem item = new ListGroupItem();
-            item.add(new Anchor(task.getTitle(), "#"));
+            Anchor a = new Anchor(task.getTitle(), "#");
+            a.addClickHandler(e -> {
+                handlers.viewTask(task.getId());
+            });
+            item.add(a);
             this.tasks.add(item);
         }
     }
