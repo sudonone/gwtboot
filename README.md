@@ -1,0 +1,1 @@
+A sample GWT application with a Spring Boot microservice for backend configured with JAX-RS annotations and H2 on-file database The client uses GWTP (https://dev.arcbees.com/gwtp/) for MVP and type-safe REST communication, and gwtbootstrap3 (https://github.com/gwtbootstrap3/gwtbootstrap3) for widgets.
