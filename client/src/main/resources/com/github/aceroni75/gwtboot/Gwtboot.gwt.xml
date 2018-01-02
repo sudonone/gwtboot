@@ -4,7 +4,6 @@
 <module rename-to='gwtboot'>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="com.github.aceroni75.gwtboot.GwtbootShared"/>
-    <inherits name="com.gwtplatform.dispatch.rest.DispatchRest"/>
     <inherits name="com.gwtplatform.dispatch.rest.delegates.ResourceDelegate"/>
     <inherits name='com.gwtplatform.mvp.MvpWithEntryPoint'/>
     <inherits name="org.gwtbootstrap3.GwtBootstrap3"/>
