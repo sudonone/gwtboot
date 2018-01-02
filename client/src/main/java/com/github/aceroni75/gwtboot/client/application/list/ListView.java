@@ -12,8 +12,11 @@ import org.gwtbootstrap3.client.ui.Anchor;
 import org.gwtbootstrap3.client.ui.ListGroup;
 import org.gwtbootstrap3.client.ui.ListGroupItem;
 import org.gwtbootstrap3.client.ui.base.HasHref;
+import org.gwtbootstrap3.client.ui.html.Paragraph;
 
 class ListView extends ViewWithUiHandlers<ListHandlers> implements ListPresenter.MyView {
+    @UiField
+    Paragraph message;
     @UiField
     ListGroup tasks;
 
@@ -34,6 +37,9 @@ class ListView extends ViewWithUiHandlers<ListHandlers> implements ListPresenter
             });
             item.add(a);
             this.tasks.add(item);
+        }
+        if (message.getElement().getStyle() != null) {
+            message.setVisible(this.tasks.getWidgetCount() == 0);
         }
     }
 

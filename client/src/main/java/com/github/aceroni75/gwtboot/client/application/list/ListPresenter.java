@@ -18,6 +18,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
+import java.util.Collections;
+
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.*;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
 
@@ -37,6 +39,7 @@ public class ListPresenter extends Presenter<ListPresenter.MyView, ListPresenter
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
+        getView().setTasks(Collections.emptyList());
         Rest.using(taskDelegate)
                 .call(TaskResource::getAllTasks)
                 .onSuccess(getView()::setTasks)
