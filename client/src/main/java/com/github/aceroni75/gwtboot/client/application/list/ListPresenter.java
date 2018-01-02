@@ -1,11 +1,8 @@
 package com.github.aceroni75.gwtboot.client.application.list;
 
 import com.github.aceroni75.gwtboot.client.application.ApplicationPresenter;
-import com.github.aceroni75.gwtboot.client.util.Places;
-import com.github.aceroni75.gwtboot.client.util.Rest;
 import com.github.aceroni75.gwtboot.shared.entity.Task;
 import com.github.aceroni75.gwtboot.shared.resource.TaskResource;
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.dispatch.rest.delegates.client.ResourceDelegate;
@@ -22,6 +19,9 @@ import java.util.Collections;
 
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.*;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
+import static com.github.aceroni75.gwtboot.client.util.Places.using;
+import static com.github.aceroni75.gwtboot.client.util.Rest.popupAndLog;
+import static com.github.aceroni75.gwtboot.client.util.Rest.using;
 
 public class ListPresenter extends Presenter<ListPresenter.MyView, ListPresenter.MyProxy> implements ListHandlers {
 
@@ -40,21 +40,26 @@ public class ListPresenter extends Presenter<ListPresenter.MyView, ListPresenter
     @Override
     public void prepareFromRequest(PlaceRequest request) {
         getView().setTasks(Collections.emptyList());
-        Rest.using(taskDelegate)
+        using(taskDelegate)
                 .call(TaskResource::getAllTasks)
                 .onSuccess(getView()::setTasks)
-                .onFailure(t -> GWT.log("Error", t))
+                .onFailure(popupAndLog("Cannot retrieve task list"))
                 .apply();
     }
 
     @Override
     public void viewTask(Long id) {
-        Places.using(placeManager).with(ID, id).reveal(TASK);
+        using(placeManager).with(ID, id).reveal(TASK);
     }
 
     @Override
     public void onAdd() {
-        Places.using(placeManager).reveal(ADD);
+        using(placeManager).reveal(ADD);
+    }
+
+    @Override
+    public void onRefresh() {
+        placeManager.revealCurrentPlace();
     }
 
     interface MyView extends View, HasUiHandlers<ListHandlers> {

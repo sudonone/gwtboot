@@ -1,10 +1,7 @@
 package com.github.aceroni75.gwtboot.client.application.task;
 
-import com.github.aceroni75.gwtboot.client.util.Places;
-import com.github.aceroni75.gwtboot.client.util.Rest;
 import com.github.aceroni75.gwtboot.shared.entity.Task;
 import com.github.aceroni75.gwtboot.shared.resource.TaskResource;
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.dispatch.rest.delegates.client.ResourceDelegate;
@@ -18,10 +15,12 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
 import static com.github.aceroni75.gwtboot.client.application.ApplicationPresenter.SLOT_MAIN;
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.EDIT;
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.LIST;
-import static com.github.aceroni75.gwtboot.client.place.NameTokens.TASK;
+import static com.github.aceroni75.gwtboot.client.place.NameTokens.*;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
+import static com.github.aceroni75.gwtboot.client.util.Places.from;
+import static com.github.aceroni75.gwtboot.client.util.Places.using;
+import static com.github.aceroni75.gwtboot.client.util.Rest.popupAndLog;
+import static com.github.aceroni75.gwtboot.client.util.Rest.using;
 
 public class TaskPresenter extends Presenter<TaskPresenter.MyView, TaskPresenter.MyProxy> implements TaskHandlers {
 
@@ -39,11 +38,12 @@ public class TaskPresenter extends Presenter<TaskPresenter.MyView, TaskPresenter
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
-        Places.from(request).getLong(ID).ifPresent(id -> {
-                Rest.using(taskDelegate)
+        getView().clearTask();
+        from(request).getLong(ID).ifPresent(id -> {
+                using(taskDelegate)
                         .call(r -> r.getTask(id))
                         .onSuccess(getView()::setTask)
-                        .onFailure(t -> GWT.log("Error", t))
+                        .onFailure(popupAndLog("Cannot retrieve task " + id))
                         .apply();
             }
         );
@@ -51,25 +51,27 @@ public class TaskPresenter extends Presenter<TaskPresenter.MyView, TaskPresenter
 
     @Override
     public void onEdit(Long id) {
-        Places.using(placeManager).with(ID, id).reveal(EDIT);
+        using(placeManager).with(ID, id).reveal(EDIT);
     }
 
     @Override
     public void onDelete(Long id) {
-        Rest.using(taskDelegate)
+        using(taskDelegate)
                 .call(r -> r.deleteTask(id))
-                .onSuccess(v -> Places.using(placeManager).reveal(LIST))
-                .onFailure(t -> GWT.log("Error", t))
+                .onSuccess(v -> using(placeManager).reveal(LIST))
+                .onFailure(popupAndLog("Cannot delete task " + id))
                 .apply();
     }
 
     @Override
     public void onBack() {
-        Places.using(placeManager).reveal(LIST);
+        using(placeManager).reveal(LIST);
     }
 
     interface MyView extends View, HasUiHandlers<TaskHandlers> {
         void setTask(Task task);
+
+        void clearTask();
     }
 
     @ProxyStandard

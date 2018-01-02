@@ -8,5 +8,6 @@
         <b.html:Paragraph ui:field="message" text="No tasks available."/>
         <b:ListGroup ui:field="tasks"/>
         <b:Button ui:field="add" text="Add"/>
+        <b:Button ui:field="refresh" text="Refresh"/>
     </g:HTMLPanel>
 </ui:UiBinder>

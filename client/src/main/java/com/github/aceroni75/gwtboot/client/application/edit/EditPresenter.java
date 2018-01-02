@@ -1,11 +1,8 @@
 package com.github.aceroni75.gwtboot.client.application.edit;
 
 import com.github.aceroni75.gwtboot.client.application.ApplicationPresenter;
-import com.github.aceroni75.gwtboot.client.util.Places;
-import com.github.aceroni75.gwtboot.client.util.Rest;
 import com.github.aceroni75.gwtboot.shared.entity.Task;
 import com.github.aceroni75.gwtboot.shared.resource.TaskResource;
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.dispatch.rest.delegates.client.ResourceDelegate;
@@ -21,6 +18,9 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.ADD;
 import static com.github.aceroni75.gwtboot.client.place.NameTokens.EDIT;
 import static com.github.aceroni75.gwtboot.client.place.ParameterTokens.ID;
+import static com.github.aceroni75.gwtboot.client.util.Places.from;
+import static com.github.aceroni75.gwtboot.client.util.Rest.popupAndLog;
+import static com.github.aceroni75.gwtboot.client.util.Rest.using;
 
 public class EditPresenter extends Presenter<EditPresenter.MyView, EditPresenter.MyProxy> implements EditHandlers {
 
@@ -38,23 +38,22 @@ public class EditPresenter extends Presenter<EditPresenter.MyView, EditPresenter
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
-        Places.from(request).getLong(ID).ifPresent(id -> {
-            Rest.using(taskDelegate)
+        getView().clearTask();
+        from(request).getLong(ID).ifPresent(id -> {
+            using(taskDelegate)
                     .call(r -> r.getTask(id))
                     .onSuccess(getView()::setTask)
-                    .onFailure(t -> GWT.log("Error", t))
+                    .onFailure(popupAndLog("Cannot retrieve task " + id))
                     .apply();
-        }).orElse(() -> {
-            getView().clearTask();
         });
     }
 
     @Override
     public void onSave(Long id, Task task) {
-        Rest.using(taskDelegate)
+        using(taskDelegate)
                 .call(r -> (id != null) ? r.updateTask(id, task) : r.addTask(task))
                 .onSuccess(e -> placeManager.navigateBack())
-                .onFailure(t -> GWT.log("Error", t))
+                .onFailure(popupAndLog("Cannot save task"))
                 .apply();
     }
 

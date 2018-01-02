@@ -48,6 +48,11 @@ class ListView extends ViewWithUiHandlers<ListHandlers> implements ListPresenter
         getUiHandlers().onAdd();
     }
 
+    @UiHandler("refresh")
+    public void onRefreshClick(ClickEvent event) {
+        getUiHandlers().onRefresh();
+    }
+
     interface Binder extends UiBinder<Widget, ListView> {
     }
 }

@@ -1,7 +1,9 @@
 package com.github.aceroni75.gwtboot.client.util;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtplatform.dispatch.rest.delegates.client.ResourceDelegate;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -10,6 +12,17 @@ import java.util.function.Function;
 public class Rest {
     public static <R> Delegate<R> using(ResourceDelegate<R> resourceDelegate) {
         return new Delegate<>(resourceDelegate);
+    }
+
+    public static Consumer<Throwable> popupAndLog(String message) {
+        return t -> {
+            if (Strings.isNotBlank(t.getMessage())) {
+                Bootbox.alert(message + ": " + t.getMessage() + ".");
+            } else {
+                Bootbox.alert(message);
+            }
+            GWT.log(message, t);
+        };
     }
 
     public static class Delegate<R> {

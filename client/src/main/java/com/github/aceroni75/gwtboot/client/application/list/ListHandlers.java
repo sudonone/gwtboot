@@ -6,4 +6,6 @@ public interface ListHandlers extends UiHandlers {
     void viewTask(Long id);
 
     void onAdd();
+
+    void onRefresh();
 }

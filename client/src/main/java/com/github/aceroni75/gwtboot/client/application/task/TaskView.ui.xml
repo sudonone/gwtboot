@@ -5,16 +5,19 @@
              xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html"
 >
     <g:HTMLPanel>
-        <b:Panel>
-            <b:PanelHeader>
-                <b:Heading size="H3" ui:field="title"/>
-            </b:PanelHeader>
-            <b:PanelBody>
-                <b.html:Text ui:field="text"/>
-            </b:PanelBody>
-        </b:Panel>
-        <b:Button ui:field="edit" text="Edit"/>
-        <b:Button ui:field="delete" text="Delete"/>
-        <b:Button ui:field="back" text="Back"/>
+        <b.html:Paragraph ui:field="message" text="Nothing to display."/>
+        <g:HTMLPanel ui:field="content">
+            <b:Panel>
+                <b:PanelHeader>
+                    <b:Heading size="H3" ui:field="title"/>
+                </b:PanelHeader>
+                <b:PanelBody>
+                    <b.html:Text ui:field="text"/>
+                </b:PanelBody>
+            </b:Panel>
+            <b:Button ui:field="edit" text="Edit"/>
+            <b:Button ui:field="delete" text="Delete"/>
+            <b:Button ui:field="back" text="Back"/>
+        </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
