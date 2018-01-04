@@ -6,7 +6,7 @@
 	<groupId>com.github.aceroni75.gwtboot</groupId>
 	<artifactId>client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>client</name>
 	<description>Gwtboot Client</description>
@@ -16,11 +16,13 @@
 		<gwtp.version>1.6</gwtp.version>
 		<gmd.version>2.0</gmd.version>
         <gb3.version>0.9.4</gb3.version>
-		<maven-war-plugin.version>2.6</maven-war-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <maven-resource-plugin.version>3.0.2</maven-resource-plugin.version>
 		<target.jdk>1.8</target.jdk>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <war.classes.dir>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</war.classes.dir>
+        <output.dir>${project.build.directory}/${project.build.finalName}</output.dir>
+        <war.classes.dir>${output.dir}/WEB-INF/classes</war.classes.dir>
 	</properties>
 
 	<build>
@@ -39,6 +41,30 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+
+            <!-- Copy webapp resources -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resource-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${output.dir}/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -60,6 +86,27 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- packaging into WebJar -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
