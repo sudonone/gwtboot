@@ -74,7 +74,7 @@
 				<configuration>
 					<strict>true</strict>
 					<logLevel>INFO</logLevel>
-					<runTarget>gwtboot.html</runTarget>
+					<runTarget>index.html</runTarget>
 					<module>com.github.aceroni75.gwtboot.Gwtboot</module>
 				</configuration>
 				<executions>
@@ -92,7 +92,6 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
