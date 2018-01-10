@@ -6,8 +6,8 @@ The application is implemented as a multi-module Maven project, with _server_ be
 
 To start the application after clone type: 
 
-mvn clean install
+_mvn clean install_
 
-mvn -pl server spring-boot:run
+_mvn -pl server spring-boot:run_
 
 the UI is accessible at _localhost_ on port _8080_
